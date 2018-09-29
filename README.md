@@ -1,4 +1,4 @@
-# BC2AzureIoTHub
+# MQTT2AzureIoTHub
 Simple Field Gateway reading data from local MQTT broker and send them to Azure IoT Hub.
 
 # iot-hub explorer
