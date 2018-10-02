@@ -66,14 +66,19 @@ namespace MQTT2AzureIotHub
         {
             string[] topicParts = e.Topic.Split('/');
             Console.WriteLine(e.Topic);
+            Console.WriteLine(topicParts[1]);
             string value = System.Text.Encoding.Default.GetString(e.Message);
             Console.WriteLine(value);
+
+            DeviceMessage _dm = new DeviceMessage(value);
+            
 
             DeviceClient dc = null;
 
             if (_deviceConnectionStrings.TryGetValue(topicParts[_ac.MQTTDeviceNameIndex], out dc))
             {
-                Message eventMessage = new Message(e.Message);
+                
+                Message eventMessage = new Message(System.Text.Encoding.UTF8.GetBytes(_dm.GetServerMessageJSON()));  
                 // send message
                 await dc.SendEventAsync(eventMessage);
             }
